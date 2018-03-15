@@ -1,45 +1,44 @@
 #include <iostream>
-#include <map>
-#include <vector>
+#include <tr1/unordered_map>
 
 using namespace std;
 
 int main()
 {
     freopen("11572 - Unique Snowflakes.txt", "r", stdin);
-    freopen("11572 - Unique Snowflakes.out", "w", stdout);
-    long t;
+    
+    int t;
     cin >> t;
     
     while(t--)
     {
-        
-        long n, ans = 0, c = 0;
+        int n;
         cin >> n;
         
-        map <long, long> m, lastpos;
-        
-        for(long i = 0 ; i < n ; i++)
+        int from = 1, ans = 0, cnt = 0, ss = 0;
+        tr1 :: unordered_map <int, int> hash;
+                
+        for(int i = 0 ; i < n ; i++)
         {
-            long x;
+            int x;
             cin >> x;
             
-            if(m[x] == 1)
+            
+            
+            if(hash[x] != 0)
             {
-                ans = max(ans, i - lastpos[x]);
-                
-                lastpos[x] = i;
-                c = ans;
+                ss = max(ss, hash[x]);
+                cnt = i + 1 - ss;
             }
             
             else
             {
-                c++;
-                m[x] = 1;
-                lastpos[x] = i;
-                c++;
-                ans = max(ans, c);
+                cnt++;    
+                
             }
+            ans = max(ans, cnt);
+            
+            hash[x] = i + 1;
         }
         
         cout << ans << endl;

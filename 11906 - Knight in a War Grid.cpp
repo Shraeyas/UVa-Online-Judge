@@ -101,5 +101,5 @@ int main()
 		dfs(0, 0);
 		
 		cout << "Case " << cs++ << ": " << even << " " << odd << endl;
-	}	
+	}
 }
