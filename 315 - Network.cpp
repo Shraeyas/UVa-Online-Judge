@@ -28,6 +28,7 @@ int main()
 	cout.tie(0);
 
 	freopen("in.in", "r", stdin);
+	freopen("out.out", "w", stdout);
 
 	int n;
 
@@ -36,7 +37,12 @@ int main()
 		critical = 0;
 
 		vis.clear();
-		adj.clear();
+
+
+		for(int i = 0 ; i < 101 ; i++)
+		{
+			adj[i].clear();
+		}
 
 		string s;
 
@@ -44,22 +50,46 @@ int main()
 
 		while(getline(cin, s))
 		{
+			vector <int> input;
+
 			if(s == "0")
 			break;
 
-			for(int i = 2 ; i < s.length() ; i += 2)
+			int num = 0;
+
+			for(int i = 0 ; i < s.length() ; i++)
 			{
-				adj[s[0] - '0'].push_back(s[i] - '0');
-				adj[s[i] - '0'].push_back(s[0] - '0');
+				if((s[i] == ' '))
+				{
+					input.push_back(num);
+					num = 0;
+				}
+
+				else
+				{
+					num = num * 10 + (s[i] - '0');
+				}
+
+				if(i == s.length() - 1)
+				{
+					input.push_back(num);
+				}
 			}
+
+			for(int i = 1 ; i < input.size() ; i++)
+			{
+				adj[input[0]].push_back(input[i]);
+				adj[input[i]].push_back(input[0]);
+			}
+			//cout << endl;
 		}
 
-		for (int i = 1 ; i <= n ; i++)
+		/*for (int i = 1 ; i <= n ; i++)
 		{
 			for (int j = 0 ; j < adj[i].size() ; j++)
 			cout << adj[i][j] << " ";
 			cout << endl;
-		}
+		}*/
 
 		for(int i = 1 ; i <= n ; i++)
 		{
@@ -79,6 +109,7 @@ int main()
 					goto label;
 				}
 			}
+
 			label:;
 		}
 
